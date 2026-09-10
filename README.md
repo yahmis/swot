@@ -1,109 +1,59 @@
-# Swot :apple:
+[![official JetBrains project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+# swot
 
-[![Build Status](https://api.travis-ci.org/leereilly/swot.png)](https://travis-ci.org/leereilly/swot) [![Gem Version](https://badge.fury.io/rb/swot.svg)](http://badge.fury.io/rb/swot)
+JetBrains uses this **swot** repository to grant free licenses for JetBrains tools to students and teachers worldwide. If your email is in one of the domains listed in this repository, you may request your free license from JetBrains. Visit http://jetbrains.com/student to request!
 
-If you have a product or service and offer **academic discounts**, there's a good chance there's some manual component to the approval process. Perhaps `.edu` email addresses are automatically approved because, for the most part at least, they're associated with American post-secondary educational institutions. Perhaps `.ac.uk` email addresses are automatically approved because they're guaranteed to belong to British universities and colleges. Unfortunately, not every country has an education-specific TLD (Top Level Domain) and plenty of schools use `.com` or `.net`.
+`lib/domains` directory contains a hierarchically structured list of email domains belonging to educational institutions. The domains are mostly owned by colleges and universities, and also by groups of schools united together because they are sharing the same email domain between several institutions, such as Township High School District 211 of Cook County, Illinois.
 
-Swot is a community-driven or crowdsourced library for verifying that domain names and email addresses are tied to a legitimate university of college - more specifically, an academic institution providing higher education in tertiary, quaternary or any other kind of post-secondary education in any country in the world.
+**Please notice that some email domains were abused in the past, and we don't trust them now**. The list of such domains is in the file https://github.com/JetBrains/swot/blob/master/lib/domains/abused.txt. If you are a student with email address in an abused domain, please request your free license with GitHub or ISIC authentication at **GitHub** or **ISIC** tabs at https://www.jetbrains.com/shop/eform/students. Teachers can request their licenses with their official documents, too (**Official Document** tab at https://www.jetbrains.com/shop/eform/students.
 
-**Pop quiz:** Which of the following domain names should be eligible for an academic discount? `stanford.edu`, `america.edu`, `duep.edu`, `gla.ac.uk`, `wunizar.es`, `usask.ca`, `hil.no`, `unze.ba`, `fu-berlin.de`, `ecla.de`, `bvb.de`, `lsmu.com`. Answers at the foot of the page.
+Please also note that JetBrains reserves the right to decline any request to modify the repository's content if it conflicts with our legal obligations, regulatory compliance, or the integrity of this repository.
 
-### Installation
+## Which educational institutions can be added to the repository?
 
-Swot is a Ruby gem, so you'll need a little Ruby-fu to get it working. Simply
+Your pull request for adding a new email domain to the repository will be satisfied if all of the conditions below are met:
 
-`gem install swot`
+1. The domain is used by an educational institution, which offers at least one long-term course (one year or longer), and the course is somehow related to IT (it is in computer science, software engineering, statistics, bioinformatics, etc.)
 
-Or add this to your `Gemfile` before doing a `bundle install`:
+2. The educational institution is a physical entity with student attendance and recognized as providing a learning curriculum for the educational system, or the institution is an accredited online educational organization providing their students with: (1) online courses with a curriculum at least one year long, (2) a dedicated email address which is provided to students only until their graduation.
 
-`gem 'swot'`
+**NOTE:** If an organization provides primary or secondary education only (i.e., no high or higher education programs), it will not be included in the list. Primary and secondary school students do not usually need access to professional developer tools, and if they learn some programming, we are glad to offer them Community versions of the tools, such as PyCharm Community Edition, to use which are free to everybody.
 
-### Usage
+If you represent a primary or secondary school and you are certain of the necessity of a professional version of a JetBrains tool for your school, please contact JetBrains sales team via https://www.jetbrains.com/support/sales/
 
-#### Verify Email Addresses
+## How to add a domain to this repository
 
-```ruby
-Swot::is_academic? 'lreilly@stanford.edu'           # true
-Swot::is_academic? 'lreilly@strath.ac.uk'           # true
-Swot::is_academic? 'lreilly@soft-eng.strath.ac.uk'  # true
-Swot::is_academic? 'pedro@ugr.es'                   # true
-Swot::is_academic? 'lee@uottawa.ca'                 # true
-Swot::is_academic? 'lee@leerilly.net'               # false
-```
+Adding a domain (e.g., `highlands.edu`) automatically includes all its subdomains (e.g., `student.highlands.edu`). Do not add subdomains separately — only the main domain is needed.
 
-#### Verify Domain Names
+### Steps to Add a Domain: ###
+1. Fork this repository. Please use a correct Fork link on GitHub
+![image](https://github.com/user-attachments/assets/21acc808-2fbd-4f66-a934-19f3b342736c)
+2. Create a file. Each domain is represented by a single `.txt` file in the repository. Example: to add `unaab.edu.ng`, create the file `lib/domains/ng/edu/unaab.txt`. Files must have the `.txt` extension.
+3. Write the official name of the educational organization on the first line of the file. It is recommended to use the name in the native language. For example, the file `lib/domains/ng/edu/unaab.txt` has to contain a line in it: *"Federal University of Agriculture, Abeokuta"*. Other lines may optionally contain other names the university is known by, for example the name of the school in English. For domains shared by multiple institutions (e.g., a school district), please add a word `.group` as the last line.
+4. [Submit the pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/).
 
-```ruby
-Swot::is_academic? 'harvard.edu'              # true
-Swot::is_academic? 'www.harvard.edu'          # true
-Swot::is_academic? 'http://www.harvard.edu'   # true
-Swot::is_academic? 'http://www.github.com'    # false
-Swot::is_academic? 'http://www.rangers.co.uk' # false
-```
+We review the requests, and usually it takes three business days.
+   
+#### How to add the domain quicker
+> We merge pull requests manually and check the information which you have provided us with before merging it.
+> Thus, if you wish to make the verification process easier for us and therefore much quicker, please mention the following in your comment to the request:
+> * the university official website URL, if it is different from the domain you are submitting
+> * a URL of a page on the official website where a long-term (>1 year) IT related course is offered by the university
+> * a URL of a page or some other proof (.pdf or a screenshot are OK) showing that the university recognizes the domain which you are submitting as an official email domain for the enrolled students.
 
-#### Find School Names
+## How to change a domain in this repository
+If a university changes its email domain or name, you can submit a pull request with the necessary changes.
 
-```ruby
-Swot::school_name 'lreilly@cs.strath.ac.uk'
-# => "University of Strathclyde"
+## Additional references
+Please refer to the `CONTRIBUTING.md` file in this repository to read more about the repository structure and contributing rules.
 
-Swot::school_name 'http://www.stanford.edu'
-# => "Stanford University"
-```
+## FAQ
+#### There are many domains in my university, how can I add all of them?
+If all the domains used for teachers' and students' email are in the same upper-level domain, you can add the upper-level domain. For example, if there is a domain `joedoe.org` owned by a university, and there are subdomains such as `stud.joedoe.org` and `prof.joedoe.org`, used by the students and the teachers respectively, you can add `joedoe.org` domain only, and both students and teachers will be able to request their free licenses.
 
-### Contributing to Swot
+However, if the upper-level domain is also used by alumni, research staff, and other people who do not participate in education directly, we encourage you to add separate subdomains, if it is possible.
 
-Contributions welcome! Please see the [contribution guidelines](CONTRIBUTING.md) for details on how to add, update, or delete schools. Code contributions and ports to different languages welcome too.
+If the university uses several email domains in different upper-level domains (for example, `euroacademia.ee` and `euroacademia.eu`), please submit several files with different paths and the same content (i.e., same name of the university) in your pull request.
 
-**Thanks** to the following people for their contributions:
-@blutack, @captn3m0, @chrishunt, @johndbritton, @johnotander, @pborreli, @rcurtis, @vikhyat,.
-
-**Special thanks** to @weppos for the [public_suffix](https://github.com/weppos/publicsuffix-ruby) gem :metal:
-
-### Known Issues
-
-* You can search by email and domain names only. You cannot search by IP.
-* You don't know if the email address belongs to a student, faculty, staff member, alumni, or a contractor.
-* There may be a few false positives, missing institutions... maybe even a couple of typos. Contributions welcome!
-
-**Please note:** just because someone has verified that they own `lreilly@stanford.edu` does *not* mean that they're a student. They could be faculty, staff, alumnni, or maybe even an external contractor. If you're suddenly getting a lot of traffic from websites like [FatWallet](http://www.fatwallet.com) or [SlickDeals](http://www.slickdeals.net), you might want to find out why. If you're suddenly getting a lot of requests from a particular school, you should look into that too. It may be good business, word of mouth, or someone may have found a loophole. Swot gives you a *high confidence level* - not a guarantee. I recommend putting some controls in place or at least monitor how it's doing from time to time.
-
-### What is a swot?
-
-According to [UrbanDictionary](http://www.urbandictionary.com/define.php?term=swot) :blue_book:
-
-> A word used by morons to insult a person of superior academic abilities.
-
-or
-
-> [verb] To Swot; Revision undertaken preceding an examination.
-
-or
-
-> [backronym] Stupid Waste of Time
-
-### Pop Quiz Answers
-
-Hopefully, you'll be surprised by some of this:
-
-| Domain | Academic? | Comments |
-|--------|-----------|----------|
-|`stanford.edu`|:heavy_check_mark:|OK, this was an easy one so you could get at least *one* right|
-|`america.edu`|:heavy_multiplication_x:| Prior to October 29th 2001, anyone could register a `.edu` domain name ([details](http://en.wikipedia.org/wiki/.edu#Grandfathered_uses)) |
-|`duep.edu`|:heavy_check_mark:| Alfred Nobel University is a *Ukranian* University *in the Ukraine* i.e. not in the USA :us: |
-|`gla.ac.uk`|:heavy_check_mark:|Glasgow University in Scotland|
-|`unizar.es`|:heavy_check_mark:|The University of Zaragoza in Spain|
-|`usask.ca`|:heavy_check_mark:|The University of Saskatchewan in Canada|
-|`hil.no`|:heavy_check_mark:|Lillehammer University College in Norway|
-|`unze.ba`|:heavy_check_mark:|University of Zenica in Bosnia and Herzegovina|
-|`fu-berlin.de`|:heavy_check_mark:|Free University of Berlin in Germany|
-|`ecla.de`|:heavy_check_mark:|ECLA of Bard is a state recognized liberal arts university in Berlin, Germany |
-|`bvb.de`|:heavy_multiplication_x:|It's a soccer team from Germany|
-|`lsmu.com`|:heavy_check_mark:| Lugansk State Medical University in the Ukraine |
-
-If you verified this by visiting all of the websites, how long did it take you? Did you have fun? Imagine you had to do this 10 - 100 times every day. Now you know a little something about the inspiration for Swot. Swot can verify them all in a fraction of a second and remove a :poop: part of someone's job.
-
-### See Also
-
-* [gman](https://github.com/benbalter/gman) - like swot, but for government emails
-* [swotphp](https://github.com/mdwheele/swotphp) - PHP port of Swot
+#### Some universities have their names duplicated in the first and the second line in the respective .txt file in this repository. Shall I put the university name twice in my .txt file to have the domain added?
+No, it's not needed. However, nothing bad happens if you do it, don't worry. It does not affect our decision on your request. 
